@@ -1,98 +1,245 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# DaVinci Backend API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Proje Hakkında
 
-## Description
+Kullanıcı ve gönderi yönetimi için tasarlanmış RESTful web servisi. NestJS framework'ü ve TypeScript kullanılarak geliştirilmiştir.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+### Özellikler
 
-## Project setup
+- RESTful API ile CRUD operasyonları
+- TypeScript ile tip güvenliği
+- JSON dosyalarında veri saklama
+- Event-driven architecture
+- CORS desteği
 
-```bash
-$ npm install
-```
+### Teknoloji Stack
 
-## Compile and run the project
+- NestJS 11.0.1
+- TypeScript 5.7.3
+- RxJS 7.8.1
+- Jest 30.0.0
+
+## Kurulum ve Çalıştırma
+
+### Gereksinimler
+
+- Node.js (v16 veya üzeri)
+- npm
+
+### Kurulum
 
 ```bash
-# development
-$ npm run start
+# Bağımlılıkları yükle
+npm install
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+# Development modunda çalıştır
+npm run start:dev
 ```
 
-## Run tests
+API `http://localhost:3001` adresinde çalışır.
+
+### Production
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm run build
+npm run start:prod
 ```
 
-## Deployment
+## Proje Yapısı
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+```
+src/
+├── users/
+│   ├── users.controller.ts      # Users HTTP endpoints
+│   ├── users.service.ts         # Users business logic
+│   ├── users.interface.ts       # User type definitions
+│   └── users.module.ts          # Users module
+├── posts/
+│   ├── posts.controller.ts      # Posts HTTP endpoints
+│   ├── posts.service.ts         # Posts business logic
+│   ├── posts.interface.ts       # Post type definitions
+│   └── posts.module.ts          # Posts module
+├── app.module.ts                # Main app module
+└── main.ts                      # Application entry point
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+data/                            # JSON veri dosyaları (otomatik oluşur)
+├── users.json                   # Kullanıcı verileri
+└── posts.json                   # Gönderi verileri
+```
+
+## API Endpoints
+
+### Base URL
+```
+http://localhost:3001
+```
+
+### Users API
+
+#### Tüm kullanıcıları getir
+```http
+GET /users
+```
+
+#### Tek kullanıcı getir
+```http
+GET /users/{id}
+```
+
+#### Yeni kullanıcı oluştur
+```http
+POST /users
+Content-Type: application/json
+
+{
+  "name": "Jane Smith",
+  "username": "janesmith",
+  "email": "jane@example.com"
+}
+```
+
+#### Kullanıcı güncelle
+```http
+PUT /users/{id}
+Content-Type: application/json
+
+{
+  "name": "Jane Smith Updated",
+  "email": "jane.updated@example.com"
+}
+```
+
+#### Kullanıcı sil
+```http
+DELETE /users/{id}
+```
+
+### Posts API
+
+#### Tüm gönderileri getir
+```http
+GET /posts
+```
+
+#### Tek gönderi getir
+```http
+GET /posts/{id}
+```
+
+#### Yeni gönderi oluştur
+```http
+POST /posts
+Content-Type: application/json
+
+{
+  "userId": 1640995200000,
+  "title": "New Post Title",
+  "body": "Post content here..."
+}
+```
+
+#### Gönderi güncelle
+```http
+PUT /posts/{id}
+Content-Type: application/json
+
+{
+  "title": "Updated Post Title",
+  "body": "Updated content..."
+}
+```
+
+#### Gönderi sil
+```http
+DELETE /posts/{id}
+```
+
+## Testing
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+npm run test          # Unit tests
+npm run test:cov      # Coverage report
+npm run test:e2e      # End-to-end tests
+npm run test:watch    # Watch mode
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## Available Scripts
 
-## Resources
+```bash
+# Development
+npm run start:dev      # Development mode with watch
+npm run start:debug    # Debug mode
 
-Check out a few resources that may come in handy when working with NestJS:
+# Production
+npm run build          # Build the application
+npm run start:prod     # Production mode
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+# Code Quality
+npm run lint          # ESLint check and fix
+npm run format        # Prettier formatting
 
-## Support
+# Testing
+npm run test          # Run unit tests
+npm run test:e2e      # End-to-end tests
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## Veri Modelleri
 
-## Stay in touch
+### User Object
+```typescript
+interface User {
+  id: number;        // Timestamp-based unique ID
+  name: string;      // Full name
+  username: string;  // Unique username
+  email: string;     // Email address
+}
+```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### Post Object
+```typescript
+interface Post {
+  id: number;        // Timestamp-based unique ID
+  userId: number;    // Foreign key to User
+  title: string;     // Post title
+  body?: string;     // Optional post content
+}
+```
 
-## License
+## Event System
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Kullanıcı silindiğinde `user.deleted` eventi yayınlanır ve Posts service bu eventi dinleyerek ilgili gönderileri otomatik siler.
+
+## Error Handling
+
+- `200 OK` - Başarılı işlemler
+- `201 Created` - Yeni kaynak oluşturuldu
+- `400 Bad Request` - Geçersiz istek
+- `404 Not Found` - Kaynak bulunamadı
+- `500 Internal Server Error` - Sunucu hatası
+
+## Configuration
+
+### CORS
+Frontend `http://localhost:5173` adresinden gelen isteklere izin verilir.
+
+### Port
+Uygulama varsayılan olarak `3001` portunda çalışır.
+
+## Troubleshooting
+
+### Port zaten kullanılıyor
+```bash
+lsof -ti:3001 | xargs kill -9
+```
+
+### Veri dosyası bozuldu
+```bash
+rm -rf data/  # Otomatik yeniden oluşturulacak
+```
+
+## Notlar
+
+- Veriler `data/` klasöründe JSON dosyaları olarak saklanır
+- Kullanıcı silindiğinde o kullanıcıya ait gönderiler otomatik silinir
+- Memory-based veri erişimi ile hızlı performans

@@ -358,7 +358,7 @@ export default function UsersAndPostsPage() {
                 ))}
             </>
           ) : (
-            <p style={{ color: "#666" }}>Please select a user to see posts</p>
+            <p style={{ color: "#666" }}>Gönderileri görmek için lütfen bir kullanıcı seçin</p>
           )}
         </div>
       </div>
